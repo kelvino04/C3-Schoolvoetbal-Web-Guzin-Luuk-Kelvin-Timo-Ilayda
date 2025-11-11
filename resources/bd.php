@@ -16,3 +16,4 @@ try {
 } catch (PDOException $e) {
     die("Database connectie mislukt: " . $e->getMessage());
 }
+?>
