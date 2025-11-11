@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('player_id');
+            $table->unsignedInteger('match_id');
+            $table->integer('minute');
+
             $table->timestamps();
         });
     }

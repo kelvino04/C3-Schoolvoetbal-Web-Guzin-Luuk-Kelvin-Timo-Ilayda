@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('team1_id');
+            $table->unsignedInteger('team2_id');
+            $table->unsignedInteger('team1_score');
+            $table->unsignedInteger('team2_score');
+            $table->text('field');
+            $table->unsignedInteger('referee_id');
+            $table->text('time');
+
+
             $table->timestamps();
         });
     }
