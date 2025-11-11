@@ -24,6 +24,7 @@
             <li>Ilayda Ç.</li>
             <li>Kelvin S.</li>
             <li>Luuk D.</li>
+            <li>Timo V.</li>
         </ul>
     </footer>
 
