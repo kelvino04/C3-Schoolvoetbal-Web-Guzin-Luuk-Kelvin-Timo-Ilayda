@@ -12,7 +12,6 @@ class GuestLayout extends Component
      */
     public function render(): View
     {
-        // verwijst nu naar je bestaande base-layout component
-        return view('components.base-layout');
+        return view('layouts.guest');
     }
 }
