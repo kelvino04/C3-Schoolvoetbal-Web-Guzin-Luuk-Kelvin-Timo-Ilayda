@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schoolvoetball</title>
-    <!-- Laravel standaard CSS -->
-    <link rel="stylesheet" href="{{ asset(path: 'css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body class="flex flex-col min-h-screen">
     <header class="bg-blue-800 text-white text-center p-4">
@@ -28,8 +27,7 @@
         </ul>
     </footer>
 
-    <!-- Laravel standaard JS -->
-    <script src="{{ asset(path: 'js/bootstrap.js') }}"></script>
-    <script src="{{ asset(path: 'js/app.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
