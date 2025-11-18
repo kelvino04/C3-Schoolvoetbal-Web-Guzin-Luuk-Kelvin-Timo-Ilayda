@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toernooi Dashboard</title>
+    <!-- Tailwind CSS toevoegen -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <!-- =========================
+         Header / Topbalk
+         Hier hoort de titel van je dashboard en eventueel menu/uitloggen
+    ========================== -->
+    <header class="bg-green-600 text-white p-4 shadow-md">
+        <h1 class="text-xl font-bold">Toernooi Dashboard</h1>
+    </header>
+
+    <!-- =========================
+         Main Content / Dashboard kaarten
+         Hier komt alle belangrijke info die de gebruiker na inloggen ziet
+    ========================== -->
+    <main class="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+        <!-- =========================
+             Kaart 1: EPICS
+             Hier laat je bijvoorbeeld aantal punten of EPICS zien
+        ========================== -->
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h2 class="text-gray-500 text-sm">EPICS</h2>
+            <p class="text-3xl font-bold">900</p>
+        </div>
+
+        <!-- =========================
+             Kaart 2: Website
+             Hier kan een overzicht staan van website stats of andere info
+        ========================== -->
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h2 class="text-gray-500 text-sm">Website</h2>
+            <p class="text-3xl font-bold">902</p>
+        </div>
+
+        <!-- =========================
+             Kaart 3: Belangrijkste info
+             Hier laat je een overzicht zien van de toernooigegevens:
+             wedstrijden, tijden, locaties, etc.
+        ========================== -->
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition md:col-span-2 lg:col-span-1">
+            <h2 class="text-gray-500 text-sm">Belangrijkste info</h2>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+                <li>Volgende wedstrijd: Team A vs Team B</li>
+                <li>Locatie: Stadion X</li>
+                <li>Starttijd: 15:00</li>
+            </ul>
+        </div>
+
+    </main>
+
+</body>
+</html>
