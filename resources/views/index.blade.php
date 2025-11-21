@@ -1,11 +1,23 @@
-<x-base-layout>
-    <div class="text-center space-y-4">
-        <h2 class="text-2xl font-bold">Welkom bij Schoolvoetball</h2>
-        <p>Kies een optie om verder te gaan:</p>
+@extends('layouts.public')
 
-        <div class="flex justify-center gap-4 mt-4">
-            <a href="{{ route('login') }}" class="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Login</a>
-            <a href="{{ route('register') }}" class="px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700 transition">Register</a>
-        </div>
+@section('content')
+<div class="text-center space-y-6">
+    <h1 class="text-3xl font-bold">Welcome to School Football</h1>
+
+    <p class="text-gray-600 dark:text-gray-300">
+        Choose an option to continue:
+    </p>
+
+    <div class="flex justify-center gap-4 mt-6">
+        <a href="{{ route('login') }}"
+           class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            Login
+        </a>
+
+        <a href="{{ route('register') }}"
+           class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+            Register
+        </a>
     </div>
-</x-base-layout>
+</div>
+@endsection
