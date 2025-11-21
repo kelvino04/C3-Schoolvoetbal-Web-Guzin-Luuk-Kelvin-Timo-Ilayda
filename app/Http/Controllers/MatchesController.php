@@ -2,63 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matches;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class MatchesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $matches = Matches::all();
+        return view('matches.index', compact('matches'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $teams = Team::all();
+        return view('matches.create', compact('teams'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'team1_id' => 'required|exists:teams,id',
+            'team2_id' => 'required|exists:teams,id',
+            'date' => 'required|date',
+            'score' => 'nullable|string',
+        ]);
+
+        Matches::create($request->all());
+        return redirect()->route('matches.index')->with('success', 'Match created!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Matches $match)
     {
-        //
+        $teams = Team::all();
+        return view('matches.edit', compact('match', 'teams'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Matches $match)
     {
-        //
+        $request->validate([
+            'team1_id' => 'required|exists:teams,id',
+            'team2_id' => 'required|exists:teams,id',
+            'date' => 'required|date',
+            'score' => 'nullable|string',
+        ]);
+
+        $match->update($request->all());
+        return redirect()->route('matches.index')->with('success', 'Match updated!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Matches $match)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $match->delete();
+        return redirect()->route('matches.index')->with('success', 'Match deleted!');
     }
 }

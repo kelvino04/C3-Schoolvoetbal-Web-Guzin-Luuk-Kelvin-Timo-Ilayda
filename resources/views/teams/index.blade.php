@@ -7,9 +7,8 @@
 
     <div class="py-12">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-            <p class="text-gray-500 dark:text-gray-400">Here will be the list of teams (data from C# backend)</p>
-
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4">
+            <h3 class="text-lg font-medium mb-4">All Teams</h3>
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-700">
                     <tr>
                         <th>Name</th>
@@ -18,16 +17,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Example Team 1</td>
-                        <td>10</td>
-                        <td>21-11-2025</td>
-                    </tr>
-                    <tr>
-                        <td>Example Team 2</td>
-                        <td>5</td>
-                        <td>20-11-2025</td>
-                    </tr>
+                    @forelse($teams as $team)
+                        <tr>
+                            <td>{{ $team->name }}</td>
+                            <td>{{ $team->points }}</td>
+                            <td>{{ $team->created_at->format('d-m-Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">No teams yet.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
