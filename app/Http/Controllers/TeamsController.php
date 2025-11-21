@@ -57,40 +57,37 @@ class TeamsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
-    {
-        $team = Team::where('id', $id)->where('creator_id', auth()->id())->firstOrFail();
-        return view('teams.edit', compact('team'));
+    public function edit(Team $team)
+{
+    if (auth()->user()->role !== 'admin' && $team->creator_id !== auth()->id()) {
+        abort(403);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        $team = Team::where('id', $id)->where('creator_id', auth()->id())->firstOrFail();
+    return view('teams.edit', compact('team'));
+}
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'points' => 'nullable|integer|min:0',
-        ]);
-
-        $team->update([
-            'name' => $request->name,
-            'points' => $request->points ?? 0,
-        ]);
-
-        return redirect()->route('dashboard')->with('success', 'Team updated successfully.');
+public function update(Request $request, Team $team)
+{
+    if (auth()->user()->role !== 'admin' && $team->creator_id !== auth()->id()) {
+        abort(403);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id): RedirectResponse
-    {
-        $team = Team::where('id', $id)->where('creator_id', auth()->id())->firstOrFail();
-        $team->delete();
+    $team->update($request->validate([
+        'name' => 'required|string|max:255',
+        'points' => 'required|integer|min:0',
+    ]));
 
-        return redirect()->route('dashboard')->with('success', 'Team deleted successfully.');
+    return redirect()->route('dashboard')->with('success', 'Team updated.');
+}
+
+public function destroy(Team $team)
+{
+    if (auth()->user()->role !== 'admin' && $team->creator_id !== auth()->id()) {
+        abort(403);
     }
+
+    $team->delete();
+
+    return redirect()->route('dashboard')->with('success', 'Team deleted.');
+}
 }
