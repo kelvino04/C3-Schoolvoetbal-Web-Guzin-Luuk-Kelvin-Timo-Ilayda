@@ -1,37 +1,56 @@
-
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title ?? 'School Football' }}</title>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased flex flex-col min-h-screen">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Header / Navbar -->
+    <header class="w-full bg-blue-600 dark:bg-blue-800 text-white py-4 shadow">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">School Football</h1>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            <!-- Nav Tabs -->
+            <nav class="space-x-4">
+                <a href="{{ route('dashboard') }}"
+                   class="{{ request()->routeIs('dashboard') ? 'underline font-semibold' : '' }} hover:underline">
+                   Home
+                </a>
+                <a href="{{ route('teams.index') }}"
+                   class="{{ request()->routeIs('teams.*') ? 'underline font-semibold' : '' }} hover:underline">
+                   Teams
+                </a>
+                <a href="{{ route('matches.index') }}"
+                   class="{{ request()->routeIs('matches.*') ? 'underline font-semibold' : '' }} hover:underline">
+                   Wedstrijden
+                </a>
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <!-- Profile / Logout -->
+                <a href="{{ route('profile.edit') }}" class="hover:underline">Profile</a>
+                <form method="POST" action="{{ route('logout') }}" class="inline">
+                    @csrf
+                    <button type="submit" class="hover:underline">Logout</button>
+                </form>
+            </nav>
         </div>
-    </body>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8">
+        {{ $slot ?? '' }}
+        @yield('content')
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-4 mt-auto shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            © 2025 Team:<br>
+            Güzin K. | Ilayda Ç. | Kelvin S. | Luuk D. | Timo V.
+        </div>
+    </footer>
+</body>
 </html>
