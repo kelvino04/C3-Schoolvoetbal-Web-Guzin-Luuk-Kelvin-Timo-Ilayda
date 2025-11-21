@@ -47,6 +47,22 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="role" :value="__('Role')" />
+
+            <select id="role" name="role"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                required autocomplete="role">
+                <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
+                    Admin
+                </option>
+                <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>
+                    User
+                </option>
+            </select>
+        </div>
+
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
