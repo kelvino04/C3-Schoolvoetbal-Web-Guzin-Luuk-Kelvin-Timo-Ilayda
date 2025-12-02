@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-            Wedstrijden
+            Matches
         </h2>
     </x-slot>
 
@@ -20,7 +20,7 @@
                     @forelse($matches as $match)
                         <tr>
                             <td>{{ $match->team1 }} vs {{ $match->team2 }}</td>
-                            <td>{{ $match->date->format('d-m-Y') }}</td>
+                            <td>{{ optional($match->match_date)->format('d-m-Y') ?? 'Unknown' }}</td>
                             <td>{{ $match->score }}</td>
                         </tr>
                     @empty

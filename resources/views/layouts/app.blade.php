@@ -26,7 +26,7 @@
                 </a>
                 <a href="{{ route('matches.index') }}"
                    class="{{ request()->routeIs('matches.*') ? 'underline font-semibold' : '' }} hover:underline">
-                   Wedstrijden
+                   Matches
                 </a>
 
                 <!-- Profile / Logout -->

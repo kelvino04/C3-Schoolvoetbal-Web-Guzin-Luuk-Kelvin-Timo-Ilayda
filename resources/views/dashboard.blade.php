@@ -18,26 +18,13 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Create New Team</h3>
-                    <form method="POST" action="{{ route('teams.store') }}">
-                        @csrf
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <x-input-label for="name" :value="__('Team Name')" />
-                                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            </div>
-                            <div>
-                                <x-input-label for="points" :value="__('Points')" />
-                                <x-text-input id="points" class="block mt-1 w-full" type="number" name="points" :value="old('points', 0)" min="0" autocomplete="points" />
-                                <x-input-error :messages="$errors->get('points')" class="mt-2" />
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-end mt-4">
-                            <x-primary-button>
-                                {{ __('Create Team') }}
-                            </x-primary-button>
-                        </div>
-                    </form>
+                    <A href="{{ route('teams.index') }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4">All Teams</A>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Create new Match</h3>
+                    <A href="{{ route('matches.index') }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4">All Teams</A>
                 </div>
             </div>
 
@@ -189,6 +176,45 @@
                             </div>
                         @else
                             <p class="text-gray-500 dark:text-gray-400">No teams found.</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">All Matches</h3>
+
+                        @php
+                            $allmatches = \App\Models\Team::all();
+                        @endphp
+
+                        @if($allmatches->count() > 0)
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
+                                        <tr>
+                                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Creator<span class="sort-arrow">⇅</span></th>
+                                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Created At<span class="sort-arrow">⇅</span></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                        @foreach($allmatches as $match)
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                                    {{ $match->team1 }} vs {{ $match->team2 }}
+                                                </td>
+
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                                    {{ optional($match->match_date)->format('d-m-Y') ?? 'Unknown' }}
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <p class="text-gray-500 dark:text-gray-400">No matches found.</p>
                         @endif
                     </div>
                 </div>
