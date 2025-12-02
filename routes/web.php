@@ -10,6 +10,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.index');
+
 // Auth routes
 require __DIR__.'/auth.php';
 
@@ -31,4 +35,6 @@ Route::middleware('auth')->group(function () {
 
     // Matches CRUD
     Route::resource('matches', MatchesController::class);
+
+
 });

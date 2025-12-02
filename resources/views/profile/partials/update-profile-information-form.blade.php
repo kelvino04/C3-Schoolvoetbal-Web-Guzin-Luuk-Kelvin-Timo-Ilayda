@@ -47,20 +47,25 @@
             @endif
         </div>
 
-        <div>
-            <x-input-label for="role" :value="__('Role')" />
+        @if (auth()->user()?->role === 'admin')
+            <div>
+                <x-input-label for="role" :value="__('Role')" />
 
-            <select id="role" name="role"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                required autocomplete="role">
-                <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
-                    Admin
-                </option>
-                <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>
-                    User
-                </option>
-            </select>
-        </div>
+                <select id="role" name="role"
+                    class="mt-1 block w-full border-gray-300 dark:border-gray-700
+               bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100
+               shadow-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                    required autocomplete="role">
+
+                    <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
+                        Admin
+                    </option>
+                    <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>
+                        User
+                    </option>
+                </select>
+            </div>
+        @endif
 
 
         <div class="flex items-center gap-4">
