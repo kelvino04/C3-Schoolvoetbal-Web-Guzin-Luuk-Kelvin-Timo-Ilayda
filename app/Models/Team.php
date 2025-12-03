@@ -11,17 +11,15 @@ class Team extends Model
 
     protected $fillable = [
         'name',
-        'points',
         'creator_id',
+        'points',
     ];
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'creator_id');
-    }
-
     public function players()
     {
         return $this->hasMany(Player::class);
+    }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }

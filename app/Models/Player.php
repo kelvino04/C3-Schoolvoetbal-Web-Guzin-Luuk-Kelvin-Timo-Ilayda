@@ -13,10 +13,14 @@ class Player extends Model
     protected $fillable = [
         'name',
         'team_id',
+        'user_id',
     ];
-
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
