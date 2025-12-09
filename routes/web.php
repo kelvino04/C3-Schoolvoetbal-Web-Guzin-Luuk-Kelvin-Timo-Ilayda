@@ -30,13 +30,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('teams', [TeamsController::class, 'index'])->name('teams.index');
 
-    Route::middleware('admin')->group(function () {
+
         Route::get('teams/create', [TeamsController::class, 'create'])->name('teams.create');
         Route::post('teams', [TeamsController::class, 'store'])->name('teams.store');
         Route::get('teams/{team}/edit', [TeamsController::class, 'edit'])->name('teams.edit');
         Route::put('teams/{team}', [TeamsController::class, 'update'])->name('teams.update');
         Route::delete('teams/{team}', [TeamsController::class, 'destroy'])->name('teams.destroy');
-    });
+    
 
     Route::resource('matches', MatchesController::class);
 });

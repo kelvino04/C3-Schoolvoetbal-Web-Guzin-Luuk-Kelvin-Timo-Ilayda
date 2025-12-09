@@ -11,8 +11,8 @@ class Team extends Model
 
     protected $fillable = [
         'name',
-        'creator_id',
         'points',
+        'creator_id',
     ];
 
     public function players()

@@ -17,13 +17,19 @@ class TeamsController extends Controller
     }
 
     public function store(Request $request) {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'points' => 'required|integer|min:0',
-        ]);
+            $request->validate([
+        'name' => 'required|string|max:255',
+        'points' => 'required|integer|min:0',
+    ]);
 
-        Team::create($request->all());
-        return redirect()->route('teams.index')->with('success', 'Team created!');
+    Team::create([
+        'name' => $request->name,
+        'points' => $request->points,
+        'creator_id' => auth()->id(),
+    ]);
+
+    return redirect()->route('teams.index')->with('success', 'Team created!');
+
     }
 
     public function edit(Team $team) {

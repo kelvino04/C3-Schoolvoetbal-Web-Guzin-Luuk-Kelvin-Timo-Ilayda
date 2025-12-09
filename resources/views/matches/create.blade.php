@@ -12,7 +12,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="team1_id" :value="'Team 1'" />
-                        <select name="team1_id" id="team1_id" class="block mt-1 w-full">
+                        <select name="team1_id" id="team1_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700
+                                    bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100
+                                    shadow-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                             @foreach($teams as $team)
                                 <option value="{{ $team->id }}">{{ $team->name }}</option>
                             @endforeach
@@ -21,7 +23,9 @@
 
                     <div>
                         <x-input-label for="team2_id" :value="'Team 2'" />
-                        <select name="team2_id" id="team2_id" class="block mt-1 w-full">
+                        <select name="team2_id" id="team2_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700
+                                    bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100
+                                    shadow-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                             @foreach($teams as $team)
                                 <option value="{{ $team->id }}">{{ $team->name }}</option>
                             @endforeach
