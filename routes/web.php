@@ -9,9 +9,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/admin', function () {
-    return view('admin.index');
-})->name('admin.index');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])
+    ->name('admin.index');
+
+Route::put('/admin/{user}/role', [App\Http\Controllers\AdminController::class, 'updateRole'])
+    ->name('admin.updateRole');
 
 require __DIR__.'/auth.php';
 

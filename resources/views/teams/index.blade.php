@@ -21,11 +21,11 @@
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-700">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Points</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name<span class="sort-arrow">⇅</span></th>
+                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Points<span class="sort-arrow">⇅</span></th>
+                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Created At<span class="sort-arrow">⇅</span></th>
                             @if(auth()->user()->role === 'admin')
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                             @endif
                         </tr>
                     </thead>
@@ -72,4 +72,35 @@
 
         </div>
     </div>
+
+    <script>
+    document.querySelectorAll("[data-sort]").forEach(header => {
+        header.dataset.sortAsc = ""; // no sort initially
+        header.addEventListener("click", () => {
+            const table = header.closest("table");
+            const tbody = table.querySelector("tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+            const index = Array.from(header.parentNode.children).indexOf(header);
+            const currentAsc = header.dataset.sortAsc === "true";
+
+            // Sort rows
+            rows.sort((a, b) => {
+                const A = a.children[index].innerText.trim().toLowerCase();
+                const B = b.children[index].innerText.trim().toLowerCase();
+                return currentAsc ? B.localeCompare(A, undefined, {numeric: true}) :
+                                    A.localeCompare(B, undefined, {numeric: true});
+            });
+
+            tbody.innerHTML = "";
+            rows.forEach(r => tbody.appendChild(r));
+
+            // Reset all arrows
+            table.querySelectorAll(".sort-arrow").forEach(span => span.innerText = "⇅");
+
+            // Update arrow for current column
+            header.dataset.sortAsc = (!currentAsc).toString();
+            header.querySelector(".sort-arrow").innerText = currentAsc ? "↓" : "↑";
+        });
+    });
+    </script>
 </x-app-layout>

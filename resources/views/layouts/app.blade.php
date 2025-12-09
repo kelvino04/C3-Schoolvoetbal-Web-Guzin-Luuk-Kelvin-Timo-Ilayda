@@ -29,12 +29,23 @@
                    Matches
                 </a>
 
+
                 <!-- Profile / Logout -->
                 <a href="{{ route('profile.edit') }}" class="hover:underline">Profile</a>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="hover:underline">Logout</button>
+                    <!-- Admin Dashboard (only for admins) -->
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                            <a href="{{ route('admin.index') }}"
+                            class="{{ request()->routeIs('admin.*') ? 'underline font-semibold' : '' }} hover:underline">
+                            Admin Dashboard
+                            </a>
+                        @endif
+                    @endauth
                 </form>
+
             </nav>
         </div>
     </header>
