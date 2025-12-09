@@ -10,9 +10,20 @@ class Matches extends Model
     use HasFactory;
 
     protected $fillable = [
-        'team1_id',
-        'team2_id',
-        'date',
-        'score',
+        'team_home_id',
+        'team_away_id',
+        'match_date',
+        'score_home',
+        'score_away',
     ];
+
+    public function homeTeam()
+    {
+        return $this->belongsTo(Team::class, 'team_home_id');
+    }
+
+    public function awayTeam()
+    {
+        return $this->belongsTo(Team::class, 'team_away_id');
+    }
 }

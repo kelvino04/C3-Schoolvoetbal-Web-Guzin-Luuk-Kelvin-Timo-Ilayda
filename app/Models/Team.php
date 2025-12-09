@@ -14,12 +14,20 @@ class Team extends Model
         'creator_id',
         'points',
     ];
+
     public function players()
     {
         return $this->hasMany(Player::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
 }
+

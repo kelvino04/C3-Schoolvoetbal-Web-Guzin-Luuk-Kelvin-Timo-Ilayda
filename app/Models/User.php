@@ -15,6 +15,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'team_id',
     ];
 
     protected $hidden = [
@@ -29,6 +30,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
     public function players()
     {
         return $this->hasMany(Player::class);
