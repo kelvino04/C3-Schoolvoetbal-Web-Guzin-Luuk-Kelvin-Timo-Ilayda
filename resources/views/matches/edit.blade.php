@@ -32,7 +32,17 @@
 
                     <div>
                         <x-input-label for="date" :value="'Date'" />
-                        <x-text-input type="date" name="date" id="date" class="block mt-1 w-full" value="{{ $match->date->format('Y-m-d') }}" required/>
+                        <x-text-input type="date" name="date" id="date" class="block mt-1 w-full" value="{{ optional($match->start_time)->format('Y-m-d') }}" required/>
+
+                    </div>
+
+                    <div>
+                        <x-input-label for="field" :value="'Field'" />
+                        <select name="field" id="field" class="block mt-1 w-full">
+                            @for($f = 1; $f <= 4; $f++)
+                                <option value="{{ $f }}" {{ $match->field == $f ? 'selected' : '' }}>Field {{ $f }}</option>
+                            @endfor
+                        </select>
                     </div>
 
                     <div>

@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('team1_id');
-            $table->unsignedBigInteger('team2_id');
-            $table->date('date');
-            $table->string('score')->nullable();
+            $table->foreignId('team1_id')->constrained('teams');
+            $table->foreignId('team2_id')->constrained('teams');
+            $table->integer('field');
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
             $table->timestamps();
-
-            $table->foreign('team1_id')->references('id')->on('teams')->onDelete('cascade');
-            $table->foreign('team2_id')->references('id')->on('teams')->onDelete('cascade');
         });
-
     }
 
     /**

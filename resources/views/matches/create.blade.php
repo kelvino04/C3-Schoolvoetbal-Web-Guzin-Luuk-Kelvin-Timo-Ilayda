@@ -38,6 +38,15 @@
                     </div>
 
                     <div>
+                        <x-input-label for="field" :value="'Field'" />
+                        <select name="field" id="field" class="block mt-1 w-full">
+                            @for($f = 1; $f <= 4; $f++)
+                                <option value="{{ $f }}">Field {{ $f }}</option>
+                            @endfor
+                        </select>
+                    </div>
+
+                    <div>
                         <x-input-label for="score" :value="'Score'" />
                         <x-text-input type="text" name="score" id="score" class="block mt-1 w-full"/>
                         <p class="text-sm text-gray-500">Optional, format: 2-1</p>
