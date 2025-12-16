@@ -14,62 +14,7 @@
                 </div>
             @endif
 
-            <!-- Create Team Form -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Create New Team</h3>
-                    <A href="{{ route('teams.index') }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4">All Teams</A>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Create new Match</h3>
-                    <A href="{{ route('matches.index') }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4">All Teams</A>
-                </div>
-            </div>
-
-            @php
-                $allTeams = \App\Models\Team::with('creator')->get();
-            @endphp
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">All Matches</h3>
-
-                        @php
-                            $allmatches = \App\Models\Team::all();
-                        @endphp
-
-                        @if($allmatches->count() > 0)
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead class="bg-gray-50 dark:bg-gray-700">
-                                        <tr>
-                                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Creator<span class="sort-arrow">⇅</span></th>
-                                            <th data-sort class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Created At<span class="sort-arrow">⇅</span></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                                        @foreach($allmatches as $match)
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                                                    {{ $match->team1 }} vs {{ $match->team2 }}
-                                                </td>
-
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                                    {{ optional($match->match_date)->format('d-m-Y') ?? 'Unknown' }}
-
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <p class="text-gray-500 dark:text-gray-400">No matches found.</p>
-                        @endif
-                    </div>
-                </div>
+            x   
 
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

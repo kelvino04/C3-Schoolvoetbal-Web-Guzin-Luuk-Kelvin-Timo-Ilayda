@@ -19,6 +19,8 @@
             @endif
 
             <div class="overflow-x-auto">
+                <div class="p-6">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">All Matches</h3>
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-700">
                         <tr>
@@ -84,6 +86,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                </div>
             </div>
 
         </div>
