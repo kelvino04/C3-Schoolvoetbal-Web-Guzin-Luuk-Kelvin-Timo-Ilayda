@@ -24,13 +24,13 @@
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                                 <div class="flex flex-col">
                                     <label for="date" class="block text-sm font-medium">Start Date (optional)</label>
-                                    <input type="date" name="date" id="date" placeholder="dd-mm-jjjj" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
+                                    <input type="date" name="date" id="date" placeholder="dd-mm-jjjj" class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
                                     <p class="text-xs text-gray-500 mt-1">Format: dd-mm-yyyy (optional)</p>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label class="block text-sm font-medium">Teams (optional)</label>
-                                    <select name="teams[]" id="teams" multiple class="mt-1 block w-full rounded border-gray-300 h-12 overflow-y-auto shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-2">
+                                    <select name="teams[]" id="teams" multiple class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 h-12 overflow-y-auto shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-2">
                                         @foreach($teams as $team)
                                             <option value="{{ $team->id }}">{{ $team->name }}</option>
                                         @endforeach
@@ -40,7 +40,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="fields_count" class="block text-sm font-medium">Number of fields</label>
-                                    <input type="number" name="fields_count" id="fields_count" value="4" min="1" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
+                                    <input type="number" name="fields_count" id="fields_count" value="4" min="1" class=" text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
                                     <p class="text-xs text-gray-500 mt-1">How many fields are available (default 4)</p>
                                 </div>
 

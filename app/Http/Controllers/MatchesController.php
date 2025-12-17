@@ -64,7 +64,7 @@ class MatchesController extends Controller
                     'team1_id' => $teams[$i]->id,
                     'team2_id' => $teams[$j]->id,
                     'start_time' => $start,
-                    // assign the computed field
+                    'end_time' => (clone $start)->addMinutes($matchDuration),
                     'field' => $field,
                 ];
 
@@ -84,9 +84,9 @@ class MatchesController extends Controller
                     $q->where('team1_id', $t2)->where('team2_id', $t1);
                 })->exists();
 
-                        if (!$exists) {
-                    MatchModel::create($matchData);
-                    $created++;
+                    if (!$exists) {
+                        MatchModel::create($matchData);
+                        $created++;
                 }
             }
         }
