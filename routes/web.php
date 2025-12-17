@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamsController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\MatchesController;
 
 Route::get('/', function () {
@@ -39,6 +40,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('teams/{team}/edit', [TeamsController::class, 'edit'])->name('teams.edit');
     Route::put('teams/{team}', [TeamsController::class, 'update'])->name('teams.update');
     Route::delete('teams/{team}', [TeamsController::class, 'destroy'])->name('teams.destroy');
+    
+    // Player management for a team
+    Route::get('teams/{team}/players', [PlayerController::class, 'index'])->name('players.index');
+    Route::get('teams/{team}/players/create', [PlayerController::class, 'create'])->name('players.create');
+    Route::post('teams/{team}/players', [PlayerController::class, 'store'])->name('players.store');
+    Route::get('teams/{team}/players/{player}/edit', [PlayerController::class, 'edit'])->name('players.edit');
+    Route::put('teams/{team}/players/{player}', [PlayerController::class, 'update'])->name('players.update');
+    Route::delete('teams/{team}/players/{player}', [PlayerController::class, 'destroy'])->name('players.destroy');
 
     // Matches CRUD routes
     Route::resource('matches', MatchesController::class)->except(['show']);
