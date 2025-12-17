@@ -33,13 +33,13 @@
                         <div class="grid grid-cols-2 gap-4 items-end">
                             <div>
                                 <label for="score_team1" class="block text-sm font-medium text-gray-700">{{ $match->team1->name ?? 'Team 1' }}</label>
-                                <input type="number" name="score_team1" id="score_team1" value="{{ old('score_team1', $homeScore) }}" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+                                <input type="number" name="score_team1" id="score_team1" value="{{ old('score_team1', $homeScore) }}" min="0" class="text-gray-900 dark:text-gray-900 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
                                 @error('score_team1') <p class="text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
                             <div>
                                 <label for="score_team2" class="block text-sm font-medium text-gray-700">{{ $match->team2->name ?? 'Team 2' }}</label>
-                                <input type="number" name="score_team2" id="score_team2" value="{{ old('score_team2', $awayScore) }}" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+                                <input type="number" name="score_team2" id="score_team2" value="{{ old('score_team2', $awayScore) }}" min="0" class="text-gray-900 dark:text-gray-900 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
                                 @error('score_team2') <p class="text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                         </div>

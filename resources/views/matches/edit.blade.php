@@ -14,7 +14,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="team1_id" :value="'Team 1'" />
-                        <select name="team1_id" id="team1_id" class="block mt-1 w-full">
+                        <select name="team1_id" id="team1_id" class="text-gray-900 dark:text-gray-900 block mt-1 w-full">
                             @foreach($teams as $team)
                                 <option value="{{ $team->id }}" {{ $match->team1_id == $team->id ? 'selected' : '' }}>{{ $team->name }}</option>
                             @endforeach
@@ -23,7 +23,7 @@
 
                     <div>
                         <x-input-label for="team2_id" :value="'Team 2'" />
-                        <select name="team2_id" id="team2_id" class="block mt-1 w-full">
+                        <select name="team2_id" id="team2_id" class="text-gray-900 dark:text-gray-900 block mt-1 w-full">
                             @foreach($teams as $team)
                                 <option value="{{ $team->id }}" {{ $match->team2_id == $team->id ? 'selected' : '' }}>{{ $team->name }}</option>
                             @endforeach
@@ -38,17 +38,11 @@
 
                     <div>
                         <x-input-label for="field" :value="'Field'" />
-                        <select name="field" id="field" class="block mt-1 w-full">
+                        <select name="field" id="field" class="text-gray-900 dark:text-gray-900 block mt-1 w-full">
                             @for($f = 1; $f <= 4; $f++)
                                 <option value="{{ $f }}" {{ $match->field == $f ? 'selected' : '' }}>Field {{ $f }}</option>
                             @endfor
                         </select>
-                    </div>
-
-                    <div>
-                        <x-input-label for="score" :value="'Score'" />
-                        <x-text-input type="text" name="score" id="score" class="block mt-1 w-full" value="{{ $match->score }}"/>
-                        <p class="text-sm text-gray-500">Optional, format: 2-1</p>
                     </div>
                 </div>
 
