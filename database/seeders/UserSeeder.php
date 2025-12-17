@@ -19,5 +19,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'), // Use a secure password in production
             'role' => 'admin',
         ]);
+
+        $this->call(TeamAndPlayerSeeder::class);
     }
 }
