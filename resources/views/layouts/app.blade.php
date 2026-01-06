@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'School Football' }}</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -16,35 +18,46 @@
 
             <!-- Nav Tabs -->
             <nav class="space-x-4">
+                <!-- Home -->
                 <a href="{{ route('dashboard') }}"
                    class="{{ request()->routeIs('dashboard') ? 'underline font-semibold' : '' }} hover:underline">
                    Home
                 </a>
-                <a href="{{ route('teams.index') }}"
-                   class="{{ request()->routeIs('teams.*') ? 'underline font-semibold' : '' }} hover:underline">
-                   Teams
-                </a>
-                <a href="{{ route('matches.index') }}"
-                   class="{{ request()->routeIs('matches.*') ? 'underline font-semibold' : '' }} hover:underline">
-                   Matches
-                </a>
 
+                <!-- Teams Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">Teams ▼</button>
+                    <div class="dropdown-content">
+                        <a href="{{ route('teams.index') }}">Team Overview</a>
+                        <a href="{{ route('teams.create') }}">Add Team</a>
+                    </div>
+                </div>
+
+                <!-- Schedule Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">Schedule ▼</button>
+                    <div class="dropdown-content">
+                        <a href="{{ route('matches.index') }}">View All Matches</a>
+                        <a href="{{ route('matches.generateMatches') }}">Generate Matches</a>
+                    </div>
+                </div>
 
                 <!-- Profile / Logout -->
                 <a href="{{ route('profile.edit') }}" class="hover:underline">Profile</a>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="hover:underline">Logout</button>
-                    <!-- Admin Dashboard (only for admins) -->
-                    @auth
-                        @if(Auth::user()->role === 'admin')
-                            <a href="{{ route('admin.index') }}"
-                            class="{{ request()->routeIs('admin.*') ? 'underline font-semibold' : '' }} hover:underline">
-                            Admin Dashboard
-                            </a>
-                        @endif
-                    @endauth
                 </form>
+
+                <!-- Admin Dashboard -->
+                @auth
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.index') }}"
+                           class="{{ request()->routeIs('admin.*') ? 'underline font-semibold' : '' }} hover:underline">
+                           Admin Dashboard
+                        </a>
+                    @endif
+                @endauth
 
             </nav>
         </div>
