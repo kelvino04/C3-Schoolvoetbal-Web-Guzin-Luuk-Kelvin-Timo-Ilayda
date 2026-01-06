@@ -28,37 +28,47 @@ class MatchesController extends Controller
         $teams = $teamsQuery->get();
         if ($teams->count() < 2) return redirect()->back()->with('error', 'Not enough teams to generate matches.');
 
+        MatchModel::truncate();
+
         $startDate = $request->input('date') ? Carbon::parse($request->input('date'))->startOfDay() : now()->startOfDay();
-        $fieldsCount = (int) $request->input('fields_count', 4);
+        $tournamentStartHour = (int) $request->input('start_hour', 9);
+        $tournamentEndHour = 20;
         $matchDuration = (int) $request->input('match_duration', 60);
+        $gapMinutes = (int) $request->input('gap_minutes', 10);
+        $fieldsCount = (int) $request->input('fields_count', 4);
 
         $created = 0;
+        $currentTime = $startDate->copy()->setHour($tournamentStartHour)->setMinute(0);
+
         for ($i = 0; $i < $teams->count(); $i++) {
             for ($j = $i + 1; $j < $teams->count(); $j++) {
+
+                if ($currentTime->hour + intdiv($matchDuration, 60) > $tournamentEndHour) {
+                    $currentTime->addDay()->setHour($tournamentStartHour)->setMinute(0);
+                }
+
                 $field = ($created % max(1, $fieldsCount)) + 1;
-                $start = (clone $startDate)->addDays($created)->startOfDay();
-                $matchData = [
+
+                MatchModel::create([
                     'team1_id' => $teams[$i]->id,
                     'team2_id' => $teams[$j]->id,
-                    'start_time' => $start,
+                    'start_time' => $currentTime,
+                    'end_time' => (clone $currentTime)->addMinutes($matchDuration),
                     'duration' => $matchDuration,
                     'field' => $field,
                     'score' => Schema::hasColumn('matches', 'score') ? null : null,
-                ];
-                $exists = MatchModel::where(function ($q) use ($teams, $i, $j) {
-                    $q->where('team1_id', $teams[$i]->id)->where('team2_id', $teams[$j]->id);
-                })->orWhere(function ($q) use ($teams, $i, $j) {
-                    $q->where('team1_id', $teams[$j]->id)->where('team2_id', $teams[$i]->id);
-                })->exists();
-                if (!$exists) {
-                    MatchModel::create($matchData);
-                    $created++;
-                }
+                    'referee' => null,
+                ]);
+
+                $created++;
+                $currentTime->addMinutes($matchDuration + $gapMinutes);
             }
         }
 
         return redirect()->route('matches.generateForm')->with('success', "Generated {$created} matches.");
     }
+
+
 
     public function index()
     {
