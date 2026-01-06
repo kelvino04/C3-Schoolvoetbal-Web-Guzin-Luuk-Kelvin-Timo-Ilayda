@@ -16,7 +16,6 @@
 
             @if(auth()->user()->role === 'admin')
                 <div class="flex justify-end space-x-2 mb-4">
-                    <a href="{{ route('matches.create') }}" class="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Create Match</a>
                     <a href="{{ url('matches/generate') }}" class="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Generate Match Schedule</a>
                 </div>
             @endif
