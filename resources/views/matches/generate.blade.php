@@ -21,11 +21,10 @@
                     <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded mb-4">
                         <form action="{{ route('matches.generateMatches') }}" method="POST" class="space-y-3">
                             @csrf
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                            <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
                                 <div class="flex flex-col">
-                                    <label for="date" class="block text-sm font-medium">Start Date (optional)</label>
-                                    <input type="date" name="date" id="date" placeholder="dd-mm-jjjj" class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
-                                    <p class="text-xs text-gray-500 mt-1">Format: dd-mm-yyyy (optional)</p>
+                                    <label for="date" class="block text-sm font-medium">Start Date</label>
+                                    <input type="date" name="date" id="date" class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
                                 </div>
 
                                 <div class="flex flex-col">
@@ -35,13 +34,21 @@
                                             <option value="{{ $team->id }}">{{ $team->name }}</option>
                                         @endforeach
                                     </select>
-                                    <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple teams. Leave empty to include all teams.</p>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="fields_count" class="block text-sm font-medium">Number of fields</label>
-                                    <input type="number" name="fields_count" id="fields_count" value="4" min="1" class=" text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
-                                    <p class="text-xs text-gray-500 mt-1">How many fields are available (default 4)</p>
+                                    <input type="number" name="fields_count" id="fields_count" value="4" min="1" class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-12 px-3" />
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="match_duration" class="block text-sm font-medium">Match Duration (minutes)</label>
+                                    <input type="number" name="match_duration" id="match_duration" value="60" min="10" class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm h-12 px-3" />
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="gap_minutes" class="block text-sm font-medium">Gap Between Matches (minutes)</label>
+                                    <input type="number" name="gap_minutes" id="gap_minutes" value="0" min="0" class="text-gray-900 dark:text-gray-900 mt-1 block w-full rounded border-gray-300 shadow-sm h-12 px-3" />
                                 </div>
 
                                 <div class="flex items-center md:justify-start">
@@ -53,11 +60,11 @@
                 @endif
 
                 @php
-                    $allMatches = \App\Models\MatchModel::with('team1','team2')->get();
+                    $allMatches = \App\Models\MatchModel::with('team1','team2')->orderBy('start_time')->get();
                 @endphp
 
                 @if($allMatches->count() > 0)
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto mt-4">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
@@ -65,9 +72,9 @@
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Team 1</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Team 2</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Field</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Scheidsrechter</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Referee</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Score</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Start time</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Start Time</th>
                                     <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -81,7 +88,7 @@
                                     <td class="px-4 py-2">{{ $match->field ?? '-' }}</td>
                                     <td class="px-4 py-2">{{ $match->referee ?? '-' }}</td>
                                     <td class="px-4 py-2">{{ $match->score ?? '-' }}</td>
-                                    <td class="px-4 py-2">{{ optional($match->start_time)->format('d-m-Y H:i') }}</td>
+                                    <td class="px-4 py-2">{{ optional($match->start_time)->format('d-m-Y H:i') ?? '-' }}</td>
                                     <td class="px-4 py-2 text-sm text-gray-500 dark:text-gray-300">
                                         <div class="flex justify-end space-x-2">
                                             <a href="{{ route('matches.edit', $match) }}" class="px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-white rounded-md text-sm">Edit</a>
@@ -101,7 +108,7 @@
                         </table>
                     </div>
                 @else
-                    <p class="text-gray-500 dark:text-gray-400">No matches found.</p>
+                    <p class="text-gray-500 dark:text-gray-400 mt-4">No matches found.</p>
                 @endif
             </div>
 

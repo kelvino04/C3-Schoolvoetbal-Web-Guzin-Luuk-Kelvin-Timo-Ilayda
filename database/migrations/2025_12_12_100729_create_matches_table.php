@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('matches', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('team1_id')->constrained('teams');
-            $table->foreignId('team2_id')->constrained('teams');
-            $table->integer('field');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
-            $table->timestamps();
-        });
+        $table->id();
+        $table->foreignId('team1_id')->constrained('teams');
+        $table->foreignId('team2_id')->constrained('teams');
+        $table->dateTime('start_time');  
+        $table->integer('duration');   
+        $table->dateTime('referee');  
+        $table->timestamps();
+});
+
     }
 
     /**
