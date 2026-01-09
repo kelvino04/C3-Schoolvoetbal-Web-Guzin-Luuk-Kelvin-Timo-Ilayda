@@ -1,41 +1,71 @@
+/* ---------- Dropdown Container ---------- */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* ---------- Dropdown Button ---------- */
 .dropdown-btn {
     background: none;
     border: none;
     font-weight: bold;
     cursor: pointer;
     color: inherit;
-    padding: 4px 8px;
+    padding: 8px 12px; 
+    border-radius: 4px;
+    transition: background 0.2s;
 }
 
+.dropdown-btn:hover {
+    background-color: rgba(255,255,255,0.1); 
+}
+
+/* ---------- Dropdown Content ---------- */
 .dropdown-content {
     display: none;
     position: absolute;
+    top: 100%; 
+    left: 0;
     background-color: white;
     color: black;
-    min-width: 180px;
+    min-width: 200px;
     border: 1px solid #ccc;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     border-radius: 4px;
-    margin-top: 4px;
     z-index: 50;
+    padding: 4px 0;
 }
 
+/* ---------- Dropdown Links ---------- */
 .dropdown-content a {
     display: block;
-    padding: 8px 12px;
+    padding: 10px 16px;
     text-decoration: none;
     color: black;
+    transition: background 0.2s;
 }
 
 .dropdown-content a:hover {
     background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdown-content {
+/* ---------- Keep dropdown open when hovering ---------- */
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
     display: block;
+}
+
+/* ---------- Dark Mode ---------- */
+body.dark .dropdown-content {
+    background-color: #1f2937; 
+    color: #f9fafb;
+    border: 1px solid #374151;
+}
+
+body.dark .dropdown-content a {
+    color: #f9fafb;
+}
+
+body.dark .dropdown-content a:hover {
+    background-color: #374151;
 }
