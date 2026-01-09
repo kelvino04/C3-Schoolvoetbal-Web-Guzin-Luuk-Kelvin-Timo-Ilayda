@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Team;
 use App\Models\MatchModel;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
@@ -32,22 +32,30 @@ class ApiController extends Controller
             ]);
         }
 
-        return response()->json(['status'=>'error','message'=>'Invalid credentials'], 401);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Invalid credentials'
+        ], 401);
     }
 
     public function matches()
     {
         $matches = MatchModel::with(['team1','team2'])
             ->whereNull('score')
+            ->orderBy('start_time')
             ->get()
-            ->map(function($m){
+            ->map(function ($m) {
                 return [
-                    'id' => $m->id,
-                    'team1_id' => $m->team1->id,
-                    'team1_name' => $m->team1->name,
-                    'team2_id' => $m->team2->id,
-                    'team2_name' => $m->team2->name,
-                    'start_time' => $m->start_time
+                    'match_id' => $m->id,
+                    'team1' => [
+                        'id' => $m->team1->id,
+                        'name' => $m->team1->name,
+                    ],
+                    'team2' => [
+                        'id' => $m->team2->id,
+                        'name' => $m->team2->name,
+                    ],
+                    'start_time' => $m->start_time,
                 ];
             });
 
@@ -58,15 +66,20 @@ class ApiController extends Controller
     {
         $results = MatchModel::with(['team1','team2'])
             ->whereNotNull('score')
+            ->orderBy('start_time')
             ->get()
-            ->map(function($m){
+            ->map(function ($m) {
                 return [
-                    'id' => $m->id,
-                    'team1_id' => $m->team1->id,
-                    'team1_name' => $m->team1->name,
-                    'team2_id' => $m->team2->id,
-                    'team2_name' => $m->team2->name,
-                    'score' => $m->score
+                    'match_id' => $m->id,
+                    'team1' => [
+                        'id' => $m->team1->id,
+                        'name' => $m->team1->name,
+                    ],
+                    'team2' => [
+                        'id' => $m->team2->id,
+                        'name' => $m->team2->name,
+                    ],
+                    'score' => $m->score,
                 ];
             });
 
