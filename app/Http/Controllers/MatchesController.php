@@ -164,23 +164,38 @@ class MatchesController extends Controller
     {
         if (!auth()->user()?->isAdmin()) abort(403);
 
-        if (!Schema::hasColumn('matches', 'score')) {
-            return redirect()->route('matches.index')->with('error', 'Database missing "score" column.');
-        }
-
         $data = $request->validate([
-            'score_team1' => 'nullable|integer|min:0|required_with:score_team2',
-            'score_team2' => 'nullable|integer|min:0|required_with:score_team1',
+            'score_team1' => 'required|integer|min:0',
+            'score_team2' => 'required|integer|min:0',
         ]);
 
-        $s1 = $data['score_team1'] ?? null;
-        $s2 = $data['score_team2'] ?? null;
+        $s1 = $data['score_team1'];
+        $s2 = $data['score_team2'];
 
-        $score = is_null($s1) && is_null($s2) ? null : sprintf('%d-%d', $s1 ?? 0, $s2 ?? 0);
-
+        $score = "{$s1}-{$s2}";
         $match->update(['score' => $score]);
-        $match->refresh();
 
-        return redirect()->route('matches.index')->with('success', 'Score updated.');
+        $team1 = $match->team1;
+        $team2 = $match->team2;
+
+        if ($match->getOriginal('score')) {
+        }
+
+        if ($s1 > $s2) {
+            $team1->points += 3;
+        } elseif ($s2 > $s1) {
+            $team2->points += 3;
+        } else {
+            $team1->points += 1;
+            $team2->points += 1;
+        }
+
+        $team1->save();
+        $team2->save();
+
+        return redirect()
+            ->route('matches.index')
+            ->with('success', 'Score saved and points updated.');
     }
+
 }
